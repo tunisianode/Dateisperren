@@ -1,8 +1,7 @@
 //UP1
 package pp.filelocking;
 
-import java.util.*;
-//import java.util.LinkedList;
+import java.util.LinkedList;
 
 //Klasse File abgeleitet aus Package java.lang Klasse Thread
 //wir nutzen run() und start()
@@ -118,19 +117,25 @@ public class File extends Thread
 		}
 		else 
 		{	
-			System.out.println ("Methode unlock for-Schleife: " + this.llname.size());
-			for (int i=0; i < this.llname.size(); i++)
+			if (this.llname.isEmpty())
 			{
-				//if (begin == llname.get(i).getBegin() && end == llname.get(i).getEnd())
+				throw new IllegalArgumentException();
+			}
+			else
+			{
+				System.out.println ("Methode unlock for-Schleife: " + this.llname.size());
+				for (int i=0; i < this.llname.size(); i++)
+				{
+					if (begin == llname.get(i).getBegin() && end == llname.get(i).getEnd())
 					//Prüfung ob Intervall vorher überhaupt gesperrt wurde
-					System.out.println ("Methode unlock boolean: " + llname.get(i).isLocked());
-					if (llname.get(i).isLocked() == true)
-					{
+					//System.out.println ("Methode unlock boolean: " + llname.get(i).isLocked());
+					//if (llname.get(i).isLocked() == true)
+					{			
+						System.out.println ("Methode unlock: removed: " + llname.get(i).getBegin() + " und " + llname.get(i).getEnd());
 						llname.remove(i);
-						//System.out.println ("Methode unlock: removed: " + llname.get(i).getBegin() + " und " + llname.get(i).getEnd());
 						//zurücksetzen
-						llname.get(i).setLocked(false);
-						System.out.println ("Methode unlock: setLocket to false");
+						//llname.get(i).setLocked(false);
+						//System.out.println ("Methode unlock: setLocket to false");
 					//notify all hier?
 					}
 					else 
@@ -139,6 +144,7 @@ public class File extends Thread
 					}
 					System.out.println ("Methode unlock: notifyAll");
 					this.notifyAll();
+				}
 			}
 		}
 	}
@@ -170,16 +176,6 @@ public class File extends Thread
 	}
 	
 
-	//Methode zum implementieren weiterer Threads (java.lang.Threads.run() )
-	public void run()
-	{
-		/*for(int i = 1; i <= 10; i++)
-		{	
-		System.out.println("1. weiterer Thread");
-		System.out.println("Wert von length: " + length);
-		System.out.println("Wert von i: " + i);
-		}*/
-	}
 
 	/**
 	 * @param args
@@ -187,15 +183,15 @@ public class File extends Thread
 	 */
 	public static void main(String[] args) throws InterruptedException 
 	{
-		File f1 = new File(83);
+		File f1 = new File(111);
 		//File f2 = new File(2048);
 		f1.start();
 		//f1.start();
 		//f1.start();
 		//f1.lock(50, 60);
 		//f1.lock(70, 75);
-		f1.lock(0, 15);
-		f1.unlock(0, 15);
+		//f1.lock(0, 15);
+		f1.unlock(50, 60);
 	}
 
 }

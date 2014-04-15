@@ -7,7 +7,6 @@ public class Sperrintervall
 {
 	//Attribute 
 	private int begin, end;
-	private boolean locked = false;
 	
 	
 	//Konstruktor
@@ -15,7 +14,6 @@ public class Sperrintervall
 	{
 		this.setBegin(begin);
 		this.setEnd(end);
-		this.locked= locked;
 	}
 
 	
@@ -37,15 +35,5 @@ public class Sperrintervall
 
 	public void setEnd(int end) {
 		this.end = end;
-	}
-
-
-	public boolean isLocked() {
-		return locked;
-	}
-
-
-	public void setLocked(boolean locked) {
-		this.locked = locked;
 	}
 }
